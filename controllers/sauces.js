@@ -43,7 +43,7 @@ exports.createOneSauce = (req, res, next) => {
     sauce.likes = 0;
     sauce.dislikes = 0;
     sauce.usersLiked = [];
-    sauce.userDisliked = [];
+    sauce.usersDisliked = [];
     sauce.save()
     .then(
         () => {
@@ -99,17 +99,17 @@ exports.postLikes = (req, res, next) => {
             };
         };
 
-        if ( sauce.userDisliked.includes(req.body.userId)){
+        if ( sauce.usersDisliked.includes(req.body.userId)){
             if (like === 0) {
                 return {
-                    userDisliked: sauce.userDisliked.filter( user => user !== req.body.userId),
-                    dislikes: sauce.userDisliked.length - 1
+                    usersDisliked: sauce.usersDisliked.filter( user => user !== req.body.userId),
+                    dislikes: sauce.usersDisliked.length - 1
                 }
             }
         } else if (like === -1) {
             return {
-                dislikes: sauce.userDisliked.push(req.body.userId),
-                userDisliked: sauce.userDisliked
+                dislikes: sauce.usersDisliked.push(req.body.userId),
+                usersDisliked: sauce.usersDisliked
             };
         };
   

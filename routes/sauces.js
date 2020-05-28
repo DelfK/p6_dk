@@ -20,7 +20,7 @@ sauceRouter.put('/:id', auth, multer, saucesCtrl.updateOneSauce);
 
 sauceRouter.delete('/:id', auth, multer, saucesCtrl.deleteOneSauce);
     
-sauceRouter.post('/:id/like', saucesCtrl.postLikes)
+sauceRouter.post('/:id/like', auth, saucesCtrl.postLikes)
 
 
 module.exports = sauceRouter;
