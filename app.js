@@ -33,11 +33,12 @@ const path = require('path');
 // serve static images
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+app.get('/', (req, res) => {
+    res.send('We are on 3000 baby');
+});
 
 // import routes
 const router = require('./routes/api');
-
-
 
 app.use('/api', router);
 
