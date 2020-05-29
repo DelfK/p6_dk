@@ -1,54 +1,59 @@
 
-// import dotenv to hide the connection authentification details
+// import DOTENV to hide the id and pwd in the DB connection details
 require('dotenv').config();
 
-// import express to create the server
+// import EXPRESS
 const express = require('express')
 const app = express();
 
-//import cors
+//import CORS
 const cors = require('cors');
 
+// import BODY-PARSER to parse the json body of incoming requests
 const bodyParser = require('body-parser');
 
-// import mongoose to connect to DB
+// import mongoose to connect the DB
 const mongoose = require('mongoose');
 
-// use cors
-app.use(cors());
-// equivalent de :
-/*app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    next();
-  });
+// setting the response header for the preflight requests
+let optionsCors = { 
+        //Access-Control-Allow-Origin CORS header from all domains with wildcard
+        origin: "*",
+        //Access-Control-Allow-Methods CORS header
+        methods: "GET,PUT,POST,DELETE",
+        // Access-Control-Allow-Headers CORS header
+        allowedHeaders: "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"       
+}
+
+// cors default configuration is
+/*
+{
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204,
+  }
 */
 
-// requests body parsing
+// allowing cors requests for all routes with configuration
+app.use(cors(optionsCors));
+
+// parse json body for all routes
 app.use(bodyParser.json());
 
-const path = require('path');
-
-// serve static images
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
-app.get('/', (req, res) => {
-    res.send('We are on 3000 baby');
-});
+// serving static images frome the images folder with express static
+  // using the path /images to load the images from the folder /images
+  // getting the images from a static folder using the absolute path with the root folder dirname
+  // result > https://localhost:3000/images/[filename]
+app.use('/images', express.static(__dirname + '/images'));
 
 // import routes
 const router = require('./routes/api');
 
+// mount the routes on /api path
 app.use('/api', router);
 
-
-//Listening on PORT 3000
-//app.listen(process.env.DB_PORT || 3001, () => {
-//console.log('Server listening on port 3000!')
-//});
-
-// Connect to DB
+// Connect to DB using the env configuration
 mongoose.connect(process.env.DB_CONNECTION,
   { useNewUrlParser: true,
     useUnifiedTopology: true,

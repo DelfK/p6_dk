@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-
+// create the data model of the sauce
 const sauceSchema = mongoose.Schema(
     {
         userId : { type: String, required: true},
@@ -19,6 +19,6 @@ const sauceSchema = mongoose.Schema(
 );
 
 
-
+// export the model
 module.exports = mongoose.model('Sauces', sauceSchema);
 
