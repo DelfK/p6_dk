@@ -9,7 +9,7 @@ const multer = require('../middleware/multer-config');
 const saucesCtrl = require('../controllers/sauces');
 
 
-// routes
+// sauces routes
 sauceRouter.get('/', saucesCtrl.getSauces);
 
 sauceRouter.get('/:id', saucesCtrl.getOneSauce)
@@ -23,4 +23,5 @@ sauceRouter.delete('/:id', auth, multer, saucesCtrl.deleteOneSauce);
 sauceRouter.post('/:id/like', auth, saucesCtrl.postLikes)
 
 
+// export the routes
 module.exports = sauceRouter;
