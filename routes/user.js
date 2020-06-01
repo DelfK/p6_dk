@@ -45,12 +45,14 @@ userRouter.post('/login', (req, res, next) => {
             if(!valid){
                 return res.status(401).json({error})
             }
-            // if valid send the userID and token
+            // if valid, send the response to the client with a token
             res.status(200).json({
                 userId: user._id,
+                // generate a token containing the user id and a secret key with the function sign
                 token: jwt.sign(
                     { userId : user._id},
                     'RANDOM_TOKEN_SECRET',
+                    // token expires after 24 hours
                     { expiresIn: '24h'}
                 )
             })

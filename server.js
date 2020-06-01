@@ -52,7 +52,7 @@ const server = https.createServer({
   cert: fs.readFileSync('./server.cert')
 }, app);
 
-// server listening on events : errors and type of serevr address 
+// server listening on events : errors and type of server address 
 server.on('error', errorHandler);
 server.on('listening', () => {
   const address = server.address();
